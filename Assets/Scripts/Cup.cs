@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace Assets.Scripts
+{
+    public class Cup : MonoBehaviour
+    {
+        #region
+        // Destinația paharului atunci când se află în mișcare.
+        private Vector3 _destination;
+
+        // Viteza de mișcare a paharului.
+        private float _speed;
+
+        // Determină daca paharul se mișcă sau nu.
+        private bool _isMoving;
+
+        // Referință la GameManager.
+        private GameManager _gameManager;
+
+        // Componenta BoxCollider a paharului.
+        private BoxCollider _boxCollider;
+        #endregion
+
+        #region Serialized Fields
+        // Determină daca paharul are ascuns sub el mingea
+        // Trebuie să fie true pentru un singur pahar.
+        [SerializeField] private bool _IsCorrectCup;
+
+        // Sistemul de particule aflat sub pahar.
+        [SerializeField] private ParticleSystem _ParticleSystem;
+        #endregion
+
+        #region Properties
+        // Determină dacă paharul și-a terminat acțiunea de mișcare.
+        public bool IsReady { get; private set; }
+
+        // Returnează variabila _IsCorrectCup.
+        public bool IsCorrectCup => _IsCorrectCup;
+        #endregion
+
+        #region
+        // Inițializeză membrii clasei.
+        private void Start()
+        {
+            _gameManager = FindAnyObjectByType<GameManager>();
+            _boxCollider = GetComponent<BoxCollider>();
+        }
+
+        // Metodă apelată la fiecare cadru.
+        // Folosită pentru realizarea mișcării paharului.
+        private void Update()
+        {
+            if (_isMoving)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, _destination, _speed * Time.deltaTime);
+                if (transform.position == _destination)
+                {
+                    _isMoving = false;
+                    IsReady = true;
+                    _gameManager.ContinueToNextAction();
+                }
+            }
+        }
+
+        // Setează o destinație pentru pahar și îl pune în mișcare.
+        public void SetCupDestination(Vector3 destination, float speed)
+        {
+            _destination = destination;
+            _speed = speed;
+
+            IsReady = false;
+            _isMoving = true;
+        }
+
+        // Dezactivează colliderul paharului.
+        public void DisableCollider()
+        {
+            _boxCollider.enabled = false;
+        }
+
+        // Pentru exercițul 3.
+        // Activează sistemul de particule aflat sub pahar.
+        public void ActivateParticleSystem()
+        {
+
+        }
+        #endregion
+    }
+}
