@@ -89,7 +89,8 @@ public class GameManager : MonoBehaviour
     // Generează lista de amestecări de pahare din cadrul jocului.
     private void PrepareShuffles()
     {
-        int numberOfShuffles = UnityEngine.Random.Range(_MinimumNumberOfShuffles, _MaximumNumberOfShuffles);
+        // Parametrul Max este Max Exclusiv, deci limita maxima este adunata cu 1.
+        int numberOfShuffles = UnityEngine.Random.Range(_MinimumNumberOfShuffles, _MaximumNumberOfShuffles + 1);
         _shuffles = new List<Tuple<Cup, Cup>>();
         for (int index = 0; index < numberOfShuffles; ++index)
         {
