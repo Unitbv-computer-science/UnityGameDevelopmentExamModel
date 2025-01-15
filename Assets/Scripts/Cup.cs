@@ -9,7 +9,7 @@ namespace Assets.Scripts
 {
     public class Cup : MonoBehaviour
     {
-        #region
+        #region Private Fields
         // Destinația paharului atunci când se află în mișcare.
         private Vector3 _destination;
 
@@ -26,6 +26,7 @@ namespace Assets.Scripts
         private BoxCollider _boxCollider;
         #endregion
 
+
         #region Serialized Fields
         // Determină daca paharul are ascuns sub el mingea
         // Trebuie să fie true pentru un singur pahar.
@@ -35,6 +36,7 @@ namespace Assets.Scripts
         [SerializeField] private ParticleSystem _ParticleSystem;
         #endregion
 
+
         #region Properties
         // Determină dacă paharul și-a terminat acțiunea de mișcare.
         public bool IsReady { get; private set; }
@@ -42,6 +44,7 @@ namespace Assets.Scripts
         // Returnează variabila _IsCorrectCup.
         public bool IsCorrectCup => _IsCorrectCup;
         #endregion
+
 
         #region
         // Inițializeză membrii clasei.

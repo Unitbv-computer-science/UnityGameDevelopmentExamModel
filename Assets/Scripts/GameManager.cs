@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private AudioSource _audioSource;
     #endregion
 
+
     #region Serialized Fields
     // Lista de pahare din joc.
     [SerializeField] private List<Cup> _Cups;
@@ -60,7 +61,17 @@ public class GameManager : MonoBehaviour
 
     // Căsuța de text pentru afișarea mesajelor.
     [SerializeField] private TextMeshProUGUI _Message;
+
+    // Sunetul folosit la apăsarea butonului de start.
+    [SerializeField] private AudioClip _ButtonClickSound;
+
+    // Sunetul folosit la amestecul dintre 2 pahare.
+    [SerializeField] private AudioClip _CupMoveSound;
+
+    // Sunetul folosit la ridicarea unui pahar.
+    [SerializeField] private AudioClip _CupLiftSound;
     #endregion
+
 
     #region Methods
     // Inițializeză membrii clasei.
@@ -185,16 +196,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Resetează scena.
-    public void Restart()
-    {
-        // Exercițiul 2A.
-    }
-
     // Redă un sunet audio.
     private void PlayAudio(AudioClip audioClip)
     {
         // Pentru exercițiile 2B, 2C, 2D.
+    }
+
+    // Resetează scena.
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     #endregion
 }

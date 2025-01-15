@@ -14,6 +14,8 @@ namespace Assets.Scripts
         [SerializeField] private GameObject _Cup;
         #endregion
 
+
+        #region Methods
         // Metodă apelată la fiecare cadru.
         // Folosită pentru a păstra mingea sub pahar.
         private void Update()
@@ -21,5 +23,6 @@ namespace Assets.Scripts
             Vector3 cupPosition = _Cup.transform.position;
             transform.position = new Vector3(cupPosition.x, transform.position.y, cupPosition.z);
         }
+        #endregion
     }
 }
