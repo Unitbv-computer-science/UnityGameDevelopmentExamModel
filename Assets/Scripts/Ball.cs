@@ -16,7 +16,7 @@ namespace Assets.Scripts
 
 
         #region Methods
-        // Metodă apelată la fiecare cadru.
+        // Metodă apelată la fiecare frame.
         // Folosită pentru a păstra mingea sub pahar.
         private void Update()
         {

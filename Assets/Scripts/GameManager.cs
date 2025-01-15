@@ -36,15 +36,6 @@ public class GameManager : MonoBehaviour
     // Lista de pahare din joc.
     [SerializeField] private List<Cup> _Cups;
 
-    // Valoarea coordonatei Y a paharelor înainte de plasare.
-    [SerializeField] private float _InitialCupHeight;
-
-    // Valoarea coordonatei Y a paharelor după plasarea pe masă
-    [SerializeField] private float _PlacedCupHeight;
-
-    // Viteza de plasare a paharelor pe masă
-    [SerializeField] private float _LaySpeed;
-
     // Numărul minim de amestecări.
     // Numărul de amestecări va fi MAI MARE SAU EGAL decât această valoare.
     [SerializeField] private int _MinimumNumberOfShuffles;
@@ -53,14 +44,11 @@ public class GameManager : MonoBehaviour
     // Numărul de amestecări va fi MAI MIC decât această valoare.
     [SerializeField] private int _MaximumNumberOfShuffles;
 
-    // Viteza de amestec al paharelor.
-    [SerializeField] private float _MoveSpeed;
-
     // Butonul de start.
     [SerializeField] private Button _StartButton;
 
     // Căsuța de text pentru afișarea mesajelor.
-    [SerializeField] private TextMeshProUGUI _Message;
+    [SerializeField] private TextMeshProUGUI _TextBox;
 
     // Sunetul folosit la apăsarea butonului de start.
     [SerializeField] private AudioClip _ButtonClickSound;
@@ -96,7 +84,6 @@ public class GameManager : MonoBehaviour
         _StartButton.interactable = false;
     }
 
-    // Exercițiul 1A.
     // Generează lista de amestecări de pahare din cadrul jocului.
     private void PrepareShuffles()
     {
@@ -105,7 +92,7 @@ public class GameManager : MonoBehaviour
         _shuffles = new List<Tuple<Cup, Cup>>();
         for (int index = 0; index < numberOfShuffles; ++index)
         {
-
+            // Exercițiul 1A.
         }
     }
 
@@ -115,15 +102,15 @@ public class GameManager : MonoBehaviour
         _gameState = GameState.Shuffle;
         foreach (Cup cup in _Cups)
         {
-            Vector3 position = new Vector3(cup.transform.position.x, _PlacedCupHeight, cup.transform.position.z);
-            cup.SetCupDestination(position, _LaySpeed);
+            Vector3 position = new Vector3(cup.transform.position.x, 0.44f, cup.transform.position.z);
+            cup.SetCupDestination(position);
         }
     }
 
     // Metodă apelată după ce un pahar și-a terminat o acțiune de mișcare.
     public void ContinueToNextAction()
     {
-        if (AllCupsAreReady())
+        if (AllCupsFinishedMoving())
         {
             switch (_gameState)
             {
@@ -137,7 +124,7 @@ public class GameManager : MonoBehaviour
                         else
                         {
                             _gameState = GameState.Choice;
-                            _Message.text = "Make your choice";
+                            _TextBox.text = "Make your choice";
                         }
                     }
                     break;
@@ -145,10 +132,10 @@ public class GameManager : MonoBehaviour
                 case GameState.Choice:
                     if (_chosenCup.IsCorrectCup)
                     {
-                        _Message.text = "Well done!";
+                        _TextBox.text = "Well done!";
                     } else
                     {
-                        _Message.text = "Try again";
+                        _TextBox.text = "Try again";
                     }
                     break;
             }
@@ -156,11 +143,11 @@ public class GameManager : MonoBehaviour
     }
 
     // Returnează true numai dacă toate paharele și-au terminat acțiunile de mișcare.
-    private bool AllCupsAreReady()
+    private bool AllCupsFinishedMoving()
     {
         foreach (Cup cup in _Cups)
         {
-            if (!cup.IsReady)
+            if (cup.IsMoving)
             {
                 return false;
             }
@@ -177,7 +164,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Metodă apelată la fiecare cadru.
+    // Metodă apelată la fiecare frame.
     // Folosită pentru identificarea paharului selectat în faza de alegere.
     private void Update()
     {

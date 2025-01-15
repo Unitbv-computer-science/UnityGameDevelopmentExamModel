@@ -5804,18 +5804,13 @@ MonoBehaviour:
   - {fileID: 1695564077}
   - {fileID: 953020207}
   - {fileID: 1153527578}
-  _InitialCupHeight: 0.649
-  _PlacedCupHeight: 0.44
-  _LaySpeed: 1
   _MinimumNumberOfShuffles: 4
   _MaximumNumberOfShuffles: 7
-  _MoveSpeed: 1
   _StartButton: {fileID: 2122103529}
-  _Message: {fileID: 65289947}
-  _ButtonClickSound: {fileID: 8300000, guid: b538e7d915260b0478907045a844de4e, type: 3}
-  _CupPlaceSound: {fileID: 8300000, guid: c91b192b6d44f904bac3a1a06de83110, type: 3}
-  _CupMoveSound: {fileID: 8300000, guid: e6f20431b2f5b29419b2a51d2b26d642, type: 3}
-  _CupLiftSound: {fileID: 8300000, guid: 24cfffa5dd950964d8309fa720d99007, type: 3}
+  _TextBox: {fileID: 65289947}
+  _ButtonClickSound: {fileID: 0}
+  _CupMoveSound: {fileID: 0}
+  _CupLiftSound: {fileID: 0}
 --- !u!4 &774074563
 Transform:
   m_ObjectHideFlags: 0

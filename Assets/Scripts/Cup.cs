@@ -13,12 +13,6 @@ namespace Assets.Scripts
         // Destinația paharului atunci când se află în mișcare.
         private Vector3 _destination;
 
-        // Viteza de mișcare a paharului.
-        private float _speed;
-
-        // Determină daca paharul se mișcă sau nu.
-        private bool _isMoving;
-
         // Referință la GameManager.
         private GameManager _gameManager;
 
@@ -28,7 +22,7 @@ namespace Assets.Scripts
 
 
         #region Serialized Fields
-        // Determină daca paharul are ascuns sub el mingea
+        // Determină daca paharul are mingea ascunsă sub el.
         // Trebuie să fie true pentru un singur pahar.
         [SerializeField] private bool _IsCorrectCup;
 
@@ -38,8 +32,8 @@ namespace Assets.Scripts
 
 
         #region Properties
-        // Determină dacă paharul și-a terminat acțiunea de mișcare.
-        public bool IsReady { get; private set; }
+        // Determină dacă se mișcă sau nu.
+        public bool IsMoving { get; private set; }
 
         // Returnează variabila _IsCorrectCup.
         public bool IsCorrectCup => _IsCorrectCup;
@@ -54,30 +48,26 @@ namespace Assets.Scripts
             _boxCollider = GetComponent<BoxCollider>();
         }
 
-        // Metodă apelată la fiecare cadru.
+        // Metodă apelată la fiecare frame.
         // Folosită pentru realizarea mișcării paharului.
         private void Update()
         {
-            if (_isMoving)
+            if (IsMoving)
             {
-                transform.position = Vector3.MoveTowards(transform.position, _destination, _speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime);
                 if (transform.position == _destination)
                 {
-                    _isMoving = false;
-                    IsReady = true;
+                    IsMoving = false;
                     _gameManager.ContinueToNextAction();
                 }
             }
         }
 
         // Setează o destinație pentru pahar și îl pune în mișcare.
-        public void SetCupDestination(Vector3 destination, float speed)
+        public void SetCupDestination(Vector3 destination)
         {
             _destination = destination;
-            _speed = speed;
-
-            IsReady = false;
-            _isMoving = true;
+            IsMoving = true;
         }
 
         // Dezactivează colliderul paharului.
