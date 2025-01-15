@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -168,8 +169,13 @@ public class GameManager : MonoBehaviour
     }
 
     // Metodă apelată la fiecare frame.
-    // Folosită pentru identificarea paharului selectat în faza de alegere.
     private void Update()
+    {
+        FindCup();
+    }
+
+    // Metodă folosită pentru identificarea paharului selectat în faza de alegere.
+    private void FindCup()
     {
         if (_gameState == GameState.Choice && Input.GetMouseButtonDown(0))
         {
