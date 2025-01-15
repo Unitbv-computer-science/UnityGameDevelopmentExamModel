@@ -118,31 +118,42 @@ public class GameManager : MonoBehaviour
             {
                 // Pentru stagiul de amestec.
                 case GameState.Shuffle:
-                    if (_shuffles != null)
-                    {
-                        if (_shuffleIndex < _shuffles.Count)
-                        {
-                            // Exercițiul 1B.
-                        }
-                        else
-                        {
-                            _gameState = GameState.Choice;
-                            _TextBox.text = "Make your choice";
-                        }
-                    }
+                    DoNextShuffle();
                     break;
 
                 // Pentru stagiul alegerii unui pahar.
                 case GameState.Choice:
-                    if (_chosenCup.IsCorrectCup)
-                    {
-                        _TextBox.text = "Well done!";
-                    } else
-                    {
-                        _TextBox.text = "Try again";
-                    }
+                    FinishGame();
                     break;
             }
+        }
+    }
+
+    private void DoNextShuffle()
+    {
+        if (_shuffles != null)
+        {
+            if (_shuffleIndex < _shuffles.Count)
+            {
+                // Exercițiul 1B.
+            }
+            else
+            {
+                _gameState = GameState.Choice;
+                _TextBox.text = "Make your choice";
+            }
+        }
+    }
+
+    private void FinishGame()
+    {
+        if (_chosenCup.IsCorrectCup)
+        {
+            _TextBox.text = "Well done!";
+        }
+        else
+        {
+            _TextBox.text = "Try again";
         }
     }
 
