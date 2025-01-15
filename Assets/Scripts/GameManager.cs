@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     // Metodă apelată când se apasă butonul Start.
     public void PrepareGame()
     {
+        PlayAudio(_ButtonClickSound);
         DisableStartButton();
         PrepareShuffles();
         LayCups();
@@ -94,6 +95,13 @@ public class GameManager : MonoBehaviour
         for (int index = 0; index < numberOfShuffles; ++index)
         {
             // Exercițiul 1A.
+            List<Cup> cups = _Cups.ToList();
+            int index1 = UnityEngine.Random.Range(0, cups.Count);
+            Cup cup1 = cups[index1];
+            cups.Remove(cup1);
+            int index2 = UnityEngine.Random.Range(0, cups.Count);
+            Cup cup2 = cups[index2];
+            _shuffles.Add(Tuple.Create(cup1, cup2));
         }
     }
 
@@ -136,6 +144,13 @@ public class GameManager : MonoBehaviour
             if (_shuffleIndex < _shuffles.Count)
             {
                 // Exercițiul 1B.
+                Tuple<Cup, Cup> currentShuffle = _shuffles[_shuffleIndex];
+                Cup cup1 = currentShuffle.Item1;
+                Cup cup2 = currentShuffle.Item2;
+                cup1.SetCupDestination(cup2.transform.position);
+                cup2.SetCupDestination(cup1.transform.position);
+                _shuffleIndex++;
+                PlayAudio(_CupMoveSound);
             }
             else
             {
@@ -150,6 +165,7 @@ public class GameManager : MonoBehaviour
         if (_chosenCup.IsCorrectCup)
         {
             _TextBox.text = "Well done!";
+            _chosenCup.ActivateParticleSystem();
         }
         else
         {
@@ -168,15 +184,6 @@ public class GameManager : MonoBehaviour
             }
         }
         return true;
-    }
-
-    // Dezactivează componentele collider pentru toate paharele.
-    private void DisableCupColliders()
-    {
-        foreach (Cup cup in _Cups)
-        {
-            cup.DisableCollider();
-        }
     }
 
     // Metodă apelată la fiecare frame.
@@ -198,15 +205,33 @@ public class GameManager : MonoBehaviour
                 if (cup != null)
                 {
                     // Exercițiul 1C.
+                    _chosenCup = cup;
+                    DisableCupColliders();
+                    Vector3 destination = _chosenCup.transform.position;
+                    destination = new Vector3(destination.x, 0.65f, destination.z);
+                    _chosenCup.SetCupDestination(destination);
+                    PlayAudio(_CupLiftSound);
                 }
             }
         }
     }
 
-    // Redă un sunet audio.
+    // Dezactivează componentele collider pentru toate paharele.
+    private void DisableCupColliders()
+    {
+        foreach (Cup cup in _Cups)
+        {
+            cup.DisableCollider();
+        }
+    }
+
+
+    // Redă un sunet audio, prin _audioSource.
     private void PlayAudio(AudioClip audioClip)
     {
         // Pentru exercițiile 2B, 2C, 2D.
+        _audioSource.clip = audioClip;
+        _audioSource.Play();
     }
 
     // Resetează scena.

@@ -80,7 +80,10 @@ namespace Assets.Scripts
         public void ActivateParticleSystem()
         {
             // Pentru Exercițul 3.
-            _ParticleSystem.Play();
+            if (_ParticleSystem != null)
+            {
+                _ParticleSystem.Play();
+            }
         }
         #endregion
     }
