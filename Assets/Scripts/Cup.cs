@@ -76,11 +76,11 @@ namespace Assets.Scripts
             _boxCollider.enabled = false;
         }
 
-        // Pentru exercițul 3.
         // Activează sistemul de particule aflat sub pahar.
         public void ActivateParticleSystem()
         {
-
+            // Pentru Exercițul 3.
+            _ParticleSystem.Play();
         }
         #endregion
     }
