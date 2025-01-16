@@ -11,7 +11,7 @@ namespace Assets.Scripts
     {
         // Default.
         Undefined = 0,
-        // Când timp are loc amestecul.
+        // Când are loc amestecul.
         Shuffle,
         // Când jucătorul trebuie să aleagă un pahar.
         Choice

@@ -12,8 +12,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     #region Private Fields
-    // Lista amestecărilor. Fiecare amestecare este salvată ca
-    // perechea de pahare folosită la amestec. 
+    // Lista amestecurilor. Fiecare amestec este salvat ca
+    // pereche de pahare pentru amestecul respectiv. 
     private List<Tuple<Cup, Cup>> _shuffles;
 
     // Indexul amestecului curent din listă.
@@ -37,12 +37,12 @@ public class GameManager : MonoBehaviour
     // Lista de pahare din joc.
     [SerializeField] private List<Cup> _Cups;
 
-    // Numărul minim de amestecări.
-    // Numărul de amestecări va fi MAI MARE SAU EGAL decât această valoare.
+    // Numărul minim de amestecuri.
+    // Numărul de amestecuri va fi MAI MARE SAU EGAL cu această valoare.
     [SerializeField] private int _MinimumNumberOfShuffles;
 
-    // Numărul maxim de amestecări.
-    // Numărul de amestecări va fi MAI MIC decât această valoare.
+    // Numărul maxim de amestecuri.
+    // Numărul de amestecuri va fi MAI MIC decât această valoare.
     [SerializeField] private int _MaximumNumberOfShuffles;
 
     // Butonul de start.
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         _StartButton.interactable = false;
     }
 
-    // Generează lista de amestecări de pahare din cadrul jocului.
+    // Generează lista de amestecuri de pahare din cadrul jocului.
     private void PrepareShuffles()
     {
         // Parametrul Max este Max Exclusiv, deci limita maximă este adunată cu 1.
@@ -129,6 +129,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Realizează următorul amestec din lista de amestecuri,
+    // sau pune jocul în stagiul de alegere dacă nu mai există amestecuri de făcut.
     private void DoNextShuffle()
     {
         if (_shuffles != null)
@@ -145,6 +147,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Afișează mesajul de final.
     private void FinishGame()
     {
         if (_chosenCup.IsCorrectCup)
